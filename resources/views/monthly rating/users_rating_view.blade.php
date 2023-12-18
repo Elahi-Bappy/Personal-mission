@@ -32,7 +32,6 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Personal Mission</a>
                     <div class="dropdown-menu">
                         <a href="{{route('personalMissionAdminView')}}" class="dropdown-item">Mission List</a>
-
                     </div>
                 </div>
             </div>
@@ -46,15 +45,14 @@
                     <div class="col col-lg-6 mb-4 mb-lg-0">
                         <div class="card mb-3" style="border-radius: .5rem;">
                             <div class="pl-2">
+
                                 @php($xValues = [])
                                 @php($yValues = [])
-                                {{--                                @dd($usersWithMissions)--}}
                                 @foreach($usersWithMissions as $usersDataWithMissions)
                                     @php(array_push($xValues, $usersDataWithMissions->first_name))
                                     @php(array_push($yValues, $usersDataWithMissions->monthly_rating))
                                 @endforeach
                                 <canvas id="myChart" style="width:100%;max-width:1000px;margin-left: 10px"></canvas>
-
                                 <script>
                                     var xValues = JSON.parse('<?= json_encode($xValues); ?>');
                                     var yValues = JSON.parse('<?= json_encode($yValues); ?>');
@@ -66,7 +64,6 @@
                                         "rgb(100,52,192)",
                                         "rgba(25,162,121,0.46)",
                                     ];
-
                                     new Chart("myChart", {
                                         type: "doughnut",
                                         data: {
@@ -103,6 +100,5 @@
             </div>
         </section>
     </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

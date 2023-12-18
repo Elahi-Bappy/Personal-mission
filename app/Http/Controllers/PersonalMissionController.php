@@ -15,12 +15,10 @@ class PersonalMissionController extends Controller
     {
         return redirect()->route('personalMissionDashboard');
     }
-
     public function personalMissionDashboard(): View
     {
         return view('personal_mission.user_mission');
     }
-
     public function personalMissionCreate(Request $request): RedirectResponse
     {
         $user = Auth::user();
@@ -29,7 +27,6 @@ class PersonalMissionController extends Controller
         PersonalMission::create($missionData);
         return redirect()->route('personalMissionUserView')->with(['success' => 'A new mission created successfully!']);
     }
-
     public function personalMissionAdminView(): View
     {
         $user = Auth::user();
@@ -39,12 +36,10 @@ class PersonalMissionController extends Controller
             ->get();
         return view('personal_mission.admin_mission_view', compact('usersWithMissions'))->with('user', $user);
     }
-
     public function personalMissionUserView(): View
     {
         $user = Auth::user();
         $usersWithMissions = DB::table('users')
-
             ->join('personal_missions', 'users.id', '=', 'personal_missions.user_id')
             ->select('users.*', 'personal_missions.id', 'personal_missions.personal_mission', 'personal_missions.edit_flag')
             ->where('users.id', '=', $user->id)
@@ -54,7 +49,6 @@ class PersonalMissionController extends Controller
 
         return view('personal_mission.user_mission_view', compact('usersWithMissions'));
     }
-
     public function personalMissionUserEditRequest(Request $request)
     {
         PersonalMission::where('id', $request->id)->update($request->only('edit_flag'));
@@ -68,7 +62,6 @@ class PersonalMissionController extends Controller
             ->get();
         return view('personal_mission.user_mission_view', compact('usersWithMissions'));
     }
-
     public function personalMissionAdminEditAcceptIgnoreRequest(Request $request)
     {
         if ($request->action == 'accept'){
@@ -89,10 +82,8 @@ class PersonalMissionController extends Controller
             return view('personal_mission.admin_mission_view', compact('usersWithMissions'))->with('user', $user);
         }
     }
-
     public function personalMissionUserMissionEditDashboard(Request $request)
     {
-
         $user = Auth::user();
         $usersWithMissions = DB::table('users')
             ->join('personal_missions', 'users.id', '=', 'personal_missions.user_id')
@@ -103,14 +94,11 @@ class PersonalMissionController extends Controller
             ->get();
         return view('personal_mission.user_personal_mission_edit_dashboard', compact('usersWithMissions'));
     }
-
     public function personalMissionUserMissionEdit(Request $request): View
     {
         PersonalMission::where('id', $request->id)->update($request->only('personal_mission', 'edit_flag','monthly_rating'));
         $user = Auth::user();
-
         $usersWithMissions = DB::table('users')
-
             ->join('personal_missions', 'users.id', '=', 'personal_missions.user_id')
             ->select('users.*', 'personal_missions.id', 'personal_missions.personal_mission', 'personal_missions.edit_flag','monthly_rating')
             ->where('users.id', '=', $user->id)
@@ -119,7 +107,6 @@ class PersonalMissionController extends Controller
             ->get();
         return view('personal_mission.user_mission_view', compact('usersWithMissions'));
     }
-
     public function personalMissionAdminMissionEditDashboard()
     {
         $user = Auth::user();
@@ -132,7 +119,6 @@ class PersonalMissionController extends Controller
             ->get();
         return view('personal_mission.admin_personal_mission_edit_dashboard', compact('usersWithMissions'));
     }
-
     public function usersMonthlyRatingView()
     {
         $user = Auth::user();
@@ -142,6 +128,17 @@ class PersonalMissionController extends Controller
             ->leftJoin('personal_missions', 'users.id', '=', 'personal_missions.user_id')
             ->select('users.*', 'personal_missions.*')
             ->get();
+
         return view('monthly rating.users_rating_view', compact('all_data'))->with('usersWithMissions', $usersWithMissions);
+    }
+
+    public function cvApplicationIndex()
+    {
+        return view('personal_mission.create-cv-form');
+    }
+
+    public function cvInformationStore()
+    {
+
     }
 }

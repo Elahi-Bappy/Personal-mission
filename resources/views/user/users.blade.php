@@ -6,7 +6,6 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
     <title>User</title>
 </head>
 <body>
@@ -21,10 +20,32 @@
                     <a href="#" class="nav-item nav-link active">Home</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Personal Mission</a>
+                        @if(now()->format('d') < 20)
+                            <div class="dropdown-menu">
+                                <a href="{{route('personalMissionUser')}}" class="dropdown-item">New Mission</a>
+                                <a href="{{route('personalMissionUserView')}}" class="dropdown-item">Mission List</a>
+                                <a href="#" class="dropdown-item">Drafts</a>
+                            </div>
+                        @else
+                            <div class="dropdown-menu">
+                                <a href="{{route('personalMissionUserView')}}" class="dropdown-item">Mission List</a>
+                                <a href="#" class="dropdown-item">Drafts</a>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Delivery</a>
+                            <div class="dropdown-menu">
+                                <a href="{{ route('shopPage')}}" class="dropdown-item">Shop</a>
+                                <a href="#" class="dropdown-item">Request List</a>
+                                <a href="#" class="dropdown-item">Drafts</a>
+                            </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Get Your CV</a>
                         <div class="dropdown-menu">
-                            <a href="{{route('personalMissionUser')}}" class="dropdown-item">New Mission</a>
-                            <a href="{{route('personalMissionUserView')}}" class="dropdown-item">Mission List</a>
-                            <a href="#" class="dropdown-item">Drafts</a>
+                            <a href="{{ route('CvApplicationForm')}}" class="dropdown-item">Create CV</a>
+                            <a href="#" class="dropdown-item">CV List</a>
                         </div>
                     </div>
                 </div>
@@ -39,7 +60,6 @@
     </nav>
     <div class="container">
         <div class="main-body">
-
             <!-- Breadcrumb -->
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb">
@@ -49,7 +69,6 @@
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
-
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
                     <div class="card">
@@ -154,7 +173,6 @@
                                                                            'country'=>$users->country,
                                                                            'dob'=>$users->dob
                                                                                 ])}}">Edit</a>
-
                                     <a
                                         href="#"
                                         onclick="event.preventDefault();document.getElementById('delete-profile').submit();"
@@ -170,15 +188,10 @@
                                         @method('delete')
                                         @csrf
                                     </form>
-
-
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
                     <div class="row gutters-sm">
                         <div class="col-sm-6 mb-3">
                             <div class="card h-100">
@@ -235,10 +248,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </body>

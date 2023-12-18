@@ -26,6 +26,12 @@
             <div class="navbar-nav">
                 <a href="{{route('usersMonthlyRatingViewDashboard')}}" class="nav-item nav-link">Monthly Rating</a>
                 <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Delivery</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Product List</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Personal Mission</a>
                     <div class="dropdown-menu">
                         <a href="{{route('personalMissionAdminView')}}" class="dropdown-item">Mission List</a>
