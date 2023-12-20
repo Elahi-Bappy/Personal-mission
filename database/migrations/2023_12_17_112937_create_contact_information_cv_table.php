@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('contact', function (Blueprint $table) {
-            $table->string('email')->after('id');
-            $table->string('social_link');
-            $table->string('mobile_number');
-            $table->string('emergency_contact');
+            $table->id();
+            $table->string('email');
+            $table->string('social_link', 500)->nullable();
+            $table->string('mobile_number')->nullable();
+            $table->string('emergency_contact')->nullable();
             $table->timestamps();
         });
     }
@@ -26,7 +27,12 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('contact', function (Blueprint $table) {
-            //
+           $table->dropColumn([
+               'email',
+               'social_link',
+               'mobile_number',
+               'emergency_contact'
+           ]);
         });
     }
 };

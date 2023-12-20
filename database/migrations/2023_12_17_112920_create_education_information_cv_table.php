@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('education', function (Blueprint $table) {
-            $table->string('level_of_education')->after('id');
+            $table->id();
+            $table->string('level_of_education');
             $table->string('major_group');
             $table->string('result_division_class');
             $table->string('marks');
             $table->string('years_of_passing');
-            $table->string('institute_name');
+            $table->string('institute_name',200);
             $table->timestamps();
         });
     }
@@ -28,7 +29,14 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('education', function (Blueprint $table) {
-            //
+            $table->dropColumn([
+                'level_of_education',
+                'major_group',
+                'result_division_class',
+                'marks',
+                'years_of_passing',
+                'institute_name'
+            ]);
         });
     }
 };

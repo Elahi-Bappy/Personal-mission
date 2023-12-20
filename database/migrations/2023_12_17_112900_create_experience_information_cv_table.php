@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('experience', function (Blueprint $table) {
-            $table->string('company_name')->after('id');
+            $table->id();
+            $table->string('company_name');
             $table->string('company_business');
             $table->string('designation');
             $table->string('department');
-            $table->string('responsibility');
-            $table->string('company_location');
+            $table->string('responsibility', 500);
+            $table->string('company_location', 200);
             $table->string('employment_period');
             $table->string('highlights',500);
             $table->timestamps();
@@ -30,7 +31,17 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('experience', function (Blueprint $table) {
-            //
+            $table->dropColumn([
+                'company_name',
+                'company_business',
+                'designation',
+                'department',
+                'responsibility',
+                'responsibility',
+                'company_location',
+                'employment_period',
+                'highlights'
+            ]);
         });
     }
 };

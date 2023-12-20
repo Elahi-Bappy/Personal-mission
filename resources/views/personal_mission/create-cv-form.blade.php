@@ -15,7 +15,7 @@
 </head>
 <body>
         <div class="testbox">
-            <form method="POST" action="/profile">
+            <form method="POST" action="{{route('cvInformationFormSubmit')}}">
                 @csrf
                 <h1>CV Information Form</h1>
                 <div class="item">
@@ -47,7 +47,7 @@
                 <div class="item">
                     <p>Contact</p>
                     <input type="email" name="email" placeholder="type your email"/>
-                    <input type="number" name="social_link" placeholder="social link"/>
+                    <input type="text" name="social_link" placeholder="social link"/>
                     <div class="city-item">
                         <input type="number" name="mobile_number" placeholder="Mobile number where you can be reached"/>
                         <input type="text" name="emergency_contact" placeholder="Emergency Contact"/>
@@ -70,7 +70,7 @@
                     <div class="city-item">
                         <input type="text" name="company_business" placeholder="Company Business"/>
                         <input type="text" name="designation" placeholder="Designation"/>
-                        <input type="number" name="department" placeholder="Department"/>
+                        <input type="text" name="department" placeholder="Department"/>
                         <input type="text" name="responsibility" placeholder="Responsibilities"/>
                         <input type="text" name="company_location" placeholder="Company Location"/>
                     </div>
