@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PersonalMission;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -139,24 +140,24 @@ class PersonalMissionController extends Controller
     public function cvInformationStore(Request $request):view
     {
         $cvUser = Auth::user();
-        PersonalMission::where('id', $request->id);
-
-        $usersWithPersonalInformationCV = DB::table('users')
-            ->join('information','users.id','=','information.id')
-            ->select('users.*','information.id','information.full_name','information.date_of_birth','information.about_me','information.street_address','information.city','information.region','information.zip_code','information.country')
-            ->join('contact','users.id','=','contact.id')
-            ->select('users.*','contact.id','contact.email','contact.social_link','contact.mobile_number','contact.emergency_contact')
-            ->join('education','users.id','=','education.id')
-            ->select('users.*','education.id','education.level_of_education','education.major_group','education.result_division_class','education.marks','education.years_of_passing','education.institute_name')
-            ->join('experience','users.id','=','experience.id')
-            ->select('users.*','experience.id','experience.company_name','experience.company_business','experience.designation','experience.department','experience.responsibility','experience.company_location','experience.employment_period','experience.highlights')
-            ->get();
-        return view('personal_mission.complete-cv',compact('usersWithPersonalInformationCV'))->with('cvUser',$cvUser);
+        $usersWithInformationCV=$request->only('id','full_name','date_of_birth','about_me','street_address','city','region','zip_code','country');
+//            ->join('personal_information','users.id','=','personal_information.id')
+//            ->select('users.*','personal_information.id','personal_information.full_name','personal_information.date_of_birth','personal_information.about_me','personal_information.street_address','personal_information.city','personal_information.region','personal_information.zip_code','personal_information.country')
+//            ->where('users.id','=',$cvUser->id)
+//            ->join('contact','users.id','=','contact.id')
+//            ->select('users.*','contact.id','contact.email','contact.social_link','contact.mobile_number','contact.emergency_contact')
+//            ->join('education','users.id','=','education.id')
+//            ->select('users.*','education.id','education.level_of_education','education.major_group','education.result_division_class','education.marks','education.years_of_passing','education.institute_name')
+//            ->join('experience','users.id','=','experience.id')
+//            ->select('users.*','experience.id','experience.company_name','experience.company_business','experience.designation','experience.department','experience.responsibility','experience.company_location','experience.employment_period','experience.highlights')
+//            ->get();
+        User::create($usersWithInformationCV);
+        return view('personal_mission.complete-cv',compact('usersWithInformationCV'))->with('cvUser',$cvUser);
     }
 
     public function createdCvView()
     {
         return view('personal_mission.complete-cv');
     }
-
+    
 }

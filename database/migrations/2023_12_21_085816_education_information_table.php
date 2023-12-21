@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('education', function (Blueprint $table) {
+        Schema::create('education_information',function (Blueprint $table){
             $table->id();
             $table->string('level_of_education');
             $table->string('major_group');
@@ -28,15 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('education', function (Blueprint $table) {
-            $table->dropColumn([
-                'level_of_education',
-                'major_group',
-                'result_division_class',
-                'marks',
-                'years_of_passing',
-                'institute_name'
-            ]);
-        });
+        Schema::dropIfExists('education_information');
     }
 };

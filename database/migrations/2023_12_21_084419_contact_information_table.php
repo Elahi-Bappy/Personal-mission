@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('contact', function (Blueprint $table) {
+        Schema::create('contact_information', function (Blueprint $table){
             $table->id();
             $table->string('email');
             $table->string('social_link', 500)->nullable();
@@ -26,13 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('contact', function (Blueprint $table) {
-           $table->dropColumn([
-               'email',
-               'social_link',
-               'mobile_number',
-               'emergency_contact'
-           ]);
-        });
+        Schema::dropIfExists('contact_information');
     }
 };

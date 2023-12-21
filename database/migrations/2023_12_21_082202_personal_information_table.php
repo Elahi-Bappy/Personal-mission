@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('information', function (Blueprint $table) {
+        Schema::create('personal_information', function (Blueprint $table){
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->string('full_name');
             $table->string('date_of_birth');
             $table->string('about_me', 400);
@@ -31,17 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('information', function (Blueprint $table) {
-            $table->dropColumn([
-               'full_name',
-                'date_of_birth',
-                'about_me',
-                'street_address',
-                'city',
-                'region',
-                'zip_code',
-                'country'
-            ]);
-        });
+        Schema::dropIfExists('personal_information');
     }
 };

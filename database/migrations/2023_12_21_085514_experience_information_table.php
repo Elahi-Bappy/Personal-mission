@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('experience', function (Blueprint $table) {
+        Schema::create('experience_information',function (Blueprint $table){
             $table->id();
             $table->string('company_name');
             $table->string('company_business');
@@ -30,18 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('experience', function (Blueprint $table) {
-            $table->dropColumn([
-                'company_name',
-                'company_business',
-                'designation',
-                'department',
-                'responsibility',
-                'responsibility',
-                'company_location',
-                'employment_period',
-                'highlights'
-            ]);
-        });
+        Schema::dropIfExists('experience_information');
     }
 };
