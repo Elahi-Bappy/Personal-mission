@@ -18,17 +18,23 @@ Route::get('/', function () {
 });
 
 Route::get('/registration',[\App\Http\Controllers\UserController::class,'registration'])->name('registrationUser');
+
 Route::get('/login',[\App\Http\Controllers\UserController::class,'login'])->name('loginUser');
+
 Route::post('/store',[\App\Http\Controllers\UserController::class,'store'])->name('storeUser');
 
 Route::get('/admin',[\App\Http\Controllers\UserController::class,'admin'])->name('admin')->middleware( 'admin');
+
 Route::get('/users',[\App\Http\Controllers\UserController::class,'user'])->name('users')->middleware( 'users');
 
 Route::post('/login_dashboard',[\App\Http\Controllers\UserController::class,'loginDashboard'])->name('loginDashboard');
+
 Route::get('/action',[\App\Http\Controllers\UserController::class,'action'])->name('actionFile')->middleware('actionMiddleware');
 
 Route::put('/update/{id}',[\App\Http\Controllers\UserController::class,'update'])->name('updateUser');
+
 Route::delete('/delete/{id}',[\App\Http\Controllers\UserController::class,'distroy'])->name('deleteUser');
+
 Route::get('/logout',[\App\Http\Controllers\UserController::class,'logout'])->name('getLogout');
 //Route::get('/requestUser',[\App\Http\Controllers\PersonalMissionController::class,'requestUser'])->name('updateRequest');
 //Route::post('/userRequestUpdate',[\App\Http\Controllers\PersonalMissionController::class,'userRequestUpdate'])->name('requestForUpdate');
@@ -56,6 +62,23 @@ Route::get('/personal-mission-admin-mission-edit', [App\Http\Controllers\Persona
 
 Route::put('/personal-mission-admin-mission-update/{id}', [App\Http\Controllers\PersonalMissionController::class, 'personalMissionAdminMissionUpdate'])->name('personalMissionAdminMissionUpdate');
 
+/* CV Application Route */
+
+Route::get('/apply-cv-index',[\App\Http\Controllers\PersonalMissionController::class,'cvApplicationIndex'])->name('CvApplicationForm');
+
+Route::post('/submit-information',[\App\Http\Controllers\PersonalMissionController::class,'cvInformationStore'])->name('cvInformationFormSubmit');
+
+Route::get('/completed-cv',[\App\Http\Controllers\PersonalMissionController::class,'createdCvView'])->name('completedCvView');
 //monthly rating start here
 
 Route::get('/users-monthly-rating-dashboard',[\App\Http\Controllers\PersonalMissionController::class,'usersMonthlyRatingView'])->name('usersMonthlyRatingViewDashboard')->middleware('monthlyRating');
+
+/* Delivery Route */
+
+Route::get('shop',[\App\Http\Controllers\UserController::class,'shopIndex'])->name('newRepairDashboard');
+
+Route::get('/shop/shop-post',[\App\Http\Controllers\DeliveryController::class,'postShop'])->name('shopPost');
+
+Route::get('/users/shop-page',[\App\Http\Controllers\DeliveryController::class,'usersShopPage'])->name('shopPage');
+
+Route::get('/shop-page/booking-registration',[\App\Http\Controllers\DeliveryController::class,'bookingRegistrationIndex'])->name('bookingRegistration');

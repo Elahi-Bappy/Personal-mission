@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('country');
             $table->string('dob');
             $table->string('phone_number');
-            $table->tinyInteger('user_type');
-
+            $table->tinyInteger('user_type')->comment('admin = 1 user = 2 shop = 3',);
             $table->dropColumn('name');
         });
     }
@@ -30,7 +29,6 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('name');
-
             $table->dropColumn([
                 'first_name',
                 'last_name',
