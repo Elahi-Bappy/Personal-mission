@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PersonalMission;
 use App\Models\User;
+use http\Message;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -137,22 +138,23 @@ class PersonalMissionController extends Controller
     {
         return view('personal_mission.create-cv-form');
     }
-    public function cvInformationStore(Request $request):view
+    public function cvInformationStore(Request $request): RedirectResponse
     {
-        $cvUser = Auth::user();
-        $usersWithInformationCV=$request->only('id','full_name','date_of_birth','about_me','street_address','city','region','zip_code','country');
-//            ->join('personal_information','users.id','=','personal_information.id')
-//            ->select('users.*','personal_information.id','personal_information.full_name','personal_information.date_of_birth','personal_information.about_me','personal_information.street_address','personal_information.city','personal_information.region','personal_information.zip_code','personal_information.country')
-//            ->where('users.id','=',$cvUser->id)
-//            ->join('contact','users.id','=','contact.id')
-//            ->select('users.*','contact.id','contact.email','contact.social_link','contact.mobile_number','contact.emergency_contact')
-//            ->join('education','users.id','=','education.id')
-//            ->select('users.*','education.id','education.level_of_education','education.major_group','education.result_division_class','education.marks','education.years_of_passing','education.institute_name')
-//            ->join('experience','users.id','=','experience.id')
-//            ->select('users.*','experience.id','experience.company_name','experience.company_business','experience.designation','experience.department','experience.responsibility','experience.company_location','experience.employment_period','experience.highlights')
-//            ->get();
-        User::create($usersWithInformationCV);
-        return view('personal_mission.complete-cv',compact('usersWithInformationCV'))->with('cvUser',$cvUser);
+
+        $cvUserInfo = $request->only('full_name',
+            'date_of_birth','about_me','street_address',
+            'city','region','zip_code','country','email',
+            'social_link','mobile_number','emergency_contact',
+            'level_of_education','major_group','result_division_class',
+            'marks','years_of_passing','institute_name','company_name',
+            'company_business','designation','department','responsibility',
+            'company_location','employment_period','highlights');
+        $notification = array(
+            'message'=>'Information submit successfully',
+            'alert-type'=>'success'
+        );
+        PersonalMission::create($cvUserInfo);
+        return redirect()->route('completedCvView')->with($notification);
     }
 
     public function createdCvView()
