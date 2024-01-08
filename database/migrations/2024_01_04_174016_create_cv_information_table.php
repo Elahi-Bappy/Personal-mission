@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('personal_information', function (Blueprint $table){
+        Schema::create('cv_information', function (Blueprint $table) {
             $table->id();
             $table->string('full_name');
             $table->string('date_of_birth')->nullable();
@@ -39,8 +39,6 @@ return new class extends Migration
             $table->string('company_location', 200);
             $table->string('employment_period');
             $table->string('highlights',500);
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }
@@ -50,6 +48,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('personal_information');
+        Schema::dropIfExists('cv_information');
     }
 };

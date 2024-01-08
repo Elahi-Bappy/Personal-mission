@@ -21,7 +21,7 @@
                 <div class="item">
                     <p>Personal Information</p>
                     <div class="name-item">
-                        <input type="text" name="name" placeholder="Full name"/>
+                        <input type="text" name="full_name" placeholder="Full name"/>
                     </div>
                     <div class="item">
                         <p>Date of birth</p>
@@ -92,5 +92,10 @@
                 </div>
             </form>
         </div>
+        @if (\Session::has('success'))
+            <div class="alert alert-success">{!! \Session::get('success') !!} </div>
+        @else (\Session::has('false'))
+            <div class="alert alert-success">{!! \Session::get('false') !!} </div>
+        @endif
 </body>
 </html>

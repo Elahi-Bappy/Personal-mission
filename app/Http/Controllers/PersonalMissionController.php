@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CvInformation;
 use App\Models\PersonalMission;
 use App\Models\User;
 use http\Message;
@@ -130,36 +131,37 @@ class PersonalMissionController extends Controller
             ->leftJoin('personal_missions', 'users.id', '=', 'personal_missions.user_id')
             ->select('users.*', 'personal_missions.*')
             ->get();
-
         return view('monthly rating.users_rating_view', compact('all_data'))->with('usersWithMissions', $usersWithMissions);
     }
-
     public function cvApplicationIndex()
     {
         return view('personal_mission.create-cv-form');
     }
     public function cvInformationStore(Request $request): RedirectResponse
     {
-
         $cvUserInfo = $request->only('full_name',
-            'date_of_birth','about_me','street_address',
-            'city','region','zip_code','country','email',
+            'date_of_birth','about_me','street_address', 'city',
+            'region','zip_code','country','email',
             'social_link','mobile_number','emergency_contact',
             'level_of_education','major_group','result_division_class',
             'marks','years_of_passing','institute_name','company_name',
             'company_business','designation','department','responsibility',
             'company_location','employment_period','highlights');
         $notification = array(
-            'message'=>'Information submit successfully',
-            'alert-type'=>'success'
+          'message' => 'your information has been submited',
+          'alert-type' => 'success'
         );
-        PersonalMission::create($cvUserInfo);
+        if ($cvUserInfo['user_id']= Auth::id()){
+            return redirect()->route('completedCvView');
+        }else{
+            back()->with(['false'=>'invalid user']);
+        }
+        $cvUserInfo['user_id'] = Auth::id();
+        CvInformation::create($cvUserInfo);
         return redirect()->route('completedCvView')->with($notification);
     }
-
     public function createdCvView()
     {
         return view('personal_mission.complete-cv');
     }
-    
 }
