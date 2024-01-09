@@ -151,14 +151,14 @@ class PersonalMissionController extends Controller
           'message' => 'your information has been submited',
           'alert-type' => 'success'
         );
-        if ($cvUserInfo['user_id']= Auth::id()){
-            return redirect()->route('completedCvView');
-        }else{
-            back()->with(['false'=>'invalid user']);
-        }
         $cvUserInfo['user_id'] = Auth::id();
         CvInformation::create($cvUserInfo);
         return redirect()->route('completedCvView')->with($notification);
+//        if ($cvUserInfo['user_id']= Auth::id()){
+//            return redirect()->route('completedCvView');
+//        }else{
+//            back()->with(['false'=>'invalid user']);
+//        }
     }
     public function createdCvView()
     {

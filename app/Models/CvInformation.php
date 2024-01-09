@@ -34,6 +34,7 @@ class CvInformation extends Model
         'responsibility',
         'company_location',
         'employment_period',
-        'highlights'
+        'highlights',
+        'user_id'
     ];
 }
